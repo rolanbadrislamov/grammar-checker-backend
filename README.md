@@ -15,11 +15,10 @@ This project aims to develop a backend for a grammar checker using FastAPI as th
 
 1. **Clone the Repository**: 
    ```
-   git clone https://github.com/your/repository.git
+   git clone https://github.com/rolanbadrislamov/grammar-checker-backend.git
    ```
 2. **Install Dependencies**: 
    ```
-   cd grammar_checker_backend
    pip install -r requirements.txt
    ```
 3. **Set Up OpenAI API Key**:
@@ -29,7 +28,7 @@ This project aims to develop a backend for a grammar checker using FastAPI as th
    ```
 4. **Run the FastAPI Server**:
    ```
-   uvicorn main:app --reload
+   uvicorn app.main:app --reload
    ```
    This will start the FastAPI server locally. You can access the API at `http://localhost:8000`.
 
@@ -48,11 +47,9 @@ This project aims to develop a backend for a grammar checker using FastAPI as th
 - **API Documentation**: FastAPI automatically generates interactive API documentation using Swagger UI, making it easy for users to understand and test the API endpoints.
 - **Asynchronous Processing**: To handle long-running requests without blocking the client, FastAPI utilizes asynchronous processing. This ensures that the backend remains responsive even during heavy processing.
 - **Error Handling**: The application includes robust error handling mechanisms to handle various types of errors, such as API request errors, invalid input, and failures in LLM generation.
--- **LLM Fault Tolerance**: The application is designed to handle errors that may occur during LLM generation, such as syntactic errors or API failures. It includes retry mechnism to handle such errors and provide a reliable service to the users.
+- **LLM Fault Tolerance Mechanism**: The application is designed to handle errors that may occur during LLM generation, such as syntactic errors or API failures. It includes retry mechnism to handle such errors and provide a reliable service to the users.
 
 ## Challenges and Solutions
-
-- **Integration with OpenAI API**: Integrating the OpenAI API smoothly into the FastAPI application required careful handling of asynchronous requests and error handling.
 - **Performance Optimization**: Ensuring that the application can handle long texts efficiently without causing timeouts or performance degradation required fine-tuning the asynchronous processing and optimizing API request handling.
 - **Attempt to run Zephyr 7B**: Attempted to run Zephyr 7B on my own device, but it could not be run due to the lack of resources. I decided to use OpenAI GPT-3.5 Turbo instead.
 
@@ -61,8 +58,8 @@ This project aims to develop a backend for a grammar checker using FastAPI as th
 - **Enhanced Error Detection**: Implementing more sophisticated error detection algorithms in addition to the LLM-based approach to improve accuracy.
 - **Scalability**: Optimizing the backend for scalability to handle a large number of concurrent requests efficiently.
 - **Load Balancing**: Implementing load balancing strategies to distribute incoming requests across multiple instances for improved performance. 
--- **Caching**: Implementing caching mechanisms to store frequently accessed data and reduce the response time for repeated requests.
---**Testing**: Writing comprehensive unit tests and integration tests to ensure the correctness and reliability of the application.
+- **Caching**: Implementing caching mechanisms to store frequently accessed data and reduce the response time for repeated requests.
+- **Testing**: Writing comprehensive unit tests and integration tests to ensure the correctness and reliability of the application.
 - **Deployment**: Setting up deployment pipelines and containerization for seamless deployment to production environments.
 
 ## Conclusion

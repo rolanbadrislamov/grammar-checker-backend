@@ -4,10 +4,13 @@ from typing import List
 from pydantic import ValidationError
 from app.schemas.text_schema import ErrorCorrection
 
+
 def validate_response(response_content: str) -> List[ErrorCorrection]:
+
     try:
         # Parse the response content
         response_data = json.loads(response_content)
+        
 
         # Validate JSON structure against ErrorCorrection schema
         error_corrections = []

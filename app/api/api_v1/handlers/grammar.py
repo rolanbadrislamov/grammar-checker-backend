@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.text_schema import TextInput, ErrorCorrection
 from app.services.openai_grammar_assistant import grammar_correction_assistant
 from typing import List
-from app.schemas.text_schema import ErrorCorrection
 
 grammar_router = APIRouter()
 
@@ -13,7 +12,7 @@ grammar_router = APIRouter()
 async def grammar_check(input_text: TextInput):
     try:
         # Call grammar check function
-        error_corrections = grammar_correction_assistant(input_text.text)
+        error_corrections = await grammar_correction_assistant(input_text.text)
         return error_corrections
     except HTTPException as e:
         raise e

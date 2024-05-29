@@ -7,12 +7,19 @@ from app.core.config import settings
 import asyncio
 
 
+# Asynchronous function to perform grammar correction using OpenAI's GPT model
 async def grammar_correction_assistant(text: str, retry_count: int = 3) -> List[ErrorCorrection]:
+    # Try the operation up to retry_count times
     for attempt in range(retry_count):
         try:
+            # Initialize the OpenAI client with the provided API key from settings
             client = AsyncOpenAI(
                 api_key=settings.OPEN_AI_API_KEY)
+
+            # Set the model to be used
             model = "gpt-3.5-turbo"
+
+            # Define the messages to be sent to the model
             messages = [
                 {
                     "role": "system",
@@ -68,12 +75,11 @@ async def grammar_correction_assistant(text: str, retry_count: int = 3) -> List[
                         '    }\n'
                         '  ]\n'
                         '}\n'
-
-
                     )
                 }
             ]
 
+            # Make an asynchronous request to the OpenAI API for chat completion
             response = await client.chat.completions.create(
                 model=model,
                 messages=messages,
@@ -84,13 +90,18 @@ async def grammar_correction_assistant(text: str, retry_count: int = 3) -> List[
                 presence_penalty=0.0,
             )
 
+            # Extract the response content
             response_content = response.choices[0].message.content.strip()
+
+            # Validate and return the response content
             return validate_response(response_content)
 
         except Exception as e:
+            # If an exception occurs and there are retries left, wait for a second before retrying
             if attempt < retry_count - 1:
                 await asyncio.sleep(1)  # wait for a second before retrying
                 continue
             else:
+                # If no retries left, raise an HTTPException with the error details
                 raise HTTPException(
                     status_code=500, detail=f"Error occurred: {str(e)}")
